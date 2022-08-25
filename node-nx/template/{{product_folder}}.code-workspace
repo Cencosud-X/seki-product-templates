@@ -1,0 +1,11 @@
+{
+  "folders": [
+    {
+      "name": "Monorepo",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "eslint.format.enable": true
+  }
+}
