@@ -20,7 +20,10 @@ module.exports = (workspacePath) => {
         `npx --yes create-nx-workspace@14.4.2 ${targetFolder} --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`
       ].join(" && "), {
         shell: true,
-        cwd: rootPath
+        cwd: rootPath,
+        env: {
+          PATH: `${process.env.PATH}:/usr/local/bin`,
+        }
       })
       createWorkspaceCmd.stdout.on('data', logFn)
       createWorkspaceCmd.stderr.on('data', logFn)
@@ -38,7 +41,10 @@ module.exports = (workspacePath) => {
           'npx nx g @nrwl/workspace:rm dummy'
         ].join(" && "), {
           shell: true,
-          cwd: workspacePath
+          cwd: workspacePath,
+          env: {
+            PATH: `${process.env.PATH}:/usr/local/bin`,
+          }
         })
 
         cleanNxCmd.stdout.on('data', logFn);
