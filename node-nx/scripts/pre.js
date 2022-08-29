@@ -16,7 +16,7 @@ module.exports = (workspacePath) => {
 
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
-      const createWorkspaceCmd = spawn(`npx --yes create-nx-workspace@14.4.2 ${targetFolder} --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
+      const createWorkspaceCmd = spawn(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
       {
         shell: true,
         cwd: rootPath,
@@ -25,10 +25,7 @@ module.exports = (workspacePath) => {
         }
       })
       createWorkspaceCmd.stdout.on('data', logFn)
-      createWorkspaceCmd.stderr.on('data', (message) => {
-        logFn('debug code');
-        logFn(message);
-      })
+      createWorkspaceCmd.stderr.on('data', logFn)
       createWorkspaceCmd.on('close', (ec) => {
 
         // some error ocurred in the previous command??
