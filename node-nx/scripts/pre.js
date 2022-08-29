@@ -18,18 +18,15 @@ module.exports = (workspacePath) => {
       console.log(process.env);
       //if [ -f ~/.bash_profile ]; then source ~/.bash_profile; fi;if [ -f ~/.zshrc ]; then source ~/.zshrc; fi;
 
-      const echoPATH = spawn(`echo $PATH`, { shell: '/bin/zsh', cwd: rootPath })
-      echoPATH.stdout.on('data', logFn)
-      echoPATH.stderr.on('data', logFn)
-      echoPATH.on('close', (ec) => { });
-
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
-      const createWorkspaceCmd = spawn(`source ~/.zshrc && npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
-        {
-          shell: '/bin/zsh',
-          cwd: rootPath
-        })
+      const createWorkspaceCmd = spawn([
+        `source ~/.zshrc`,
+        `npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`
+      ].join(' && '), {
+        shell: '/bin/zsh',
+        cwd: rootPath
+      })
       createWorkspaceCmd.stdout.on('data', logFn)
       createWorkspaceCmd.stderr.on('data', (message) => {
         logFn("debug code")
@@ -45,14 +42,12 @@ module.exports = (workspacePath) => {
         // ------------------------------------------------------- 
         // Remove unused nx extras
         const cleanNxCmd = spawn([
+          'source ~/.zshrc',
           'npx nx g @nrwl/workspace:rm dummy-e2e',
           'npx nx g @nrwl/workspace:rm dummy'
         ].join(" && "), {
           shell: '/bin/zsh',
-          cwd: workspacePath,
-          env: {
-            PATH: `${process.env.PATH}:${pathToAdd.join(":")}`,
-          }
+          cwd: workspacePath
         })
 
         cleanNxCmd.stdout.on('data', logFn);
