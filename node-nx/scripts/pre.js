@@ -19,7 +19,9 @@ module.exports = (workspacePath) => {
 
       const pathToAdd = [`/usr/local/bin`];
       try {
-        const result = spawnSync('nvm which $(nvm current)')
+        const result = spawnSync('echo $(nvm which $(nvm current))')
+        console.log('stodout', result.stdout.toString())
+        console.log('stdErr', result.stderr.toString())
         if (result.stdout.toString().trim().length > 0) {
           result.push(result.stdout.toString())
         }
