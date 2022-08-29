@@ -16,6 +16,18 @@ module.exports = (workspacePath) => {
 
       console.log(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`);
       
+
+
+      const echoPATH = spawn(`echo $PATH`, {
+        shell: true,
+        cwd: rootPath
+      })
+      echoPATH.stdout.on('data', logFn)
+      echoPATH.stderr.on('data', logFn)
+      echoPATH.on('close', (ec) => {});
+
+
+      
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
       const createWorkspaceCmd = spawn(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
