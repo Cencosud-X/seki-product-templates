@@ -14,6 +14,8 @@ module.exports = (workspacePath) => {
         c === 0 ? resolve() : reject(new Error('failed to install pre-requisites'))
       };
 
+      console.log(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`);
+      
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
       const createWorkspaceCmd = spawn(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
