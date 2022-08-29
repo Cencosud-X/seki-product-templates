@@ -15,6 +15,7 @@ module.exports = (workspacePath) => {
       };
 
 
+      console.log(process.env);
       //if [ -f ~/.bash_profile ]; then source ~/.bash_profile; fi;if [ -f ~/.zshrc ]; then source ~/.zshrc; fi;
 
       const echoPATH = spawn(`echo $PATH`, { shell: '/bin/zsh', cwd: rootPath })
