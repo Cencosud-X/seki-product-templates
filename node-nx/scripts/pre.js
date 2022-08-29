@@ -28,10 +28,7 @@ module.exports = (workspacePath) => {
         cwd: rootPath
       })
       createWorkspaceCmd.stdout.on('data', logFn)
-      createWorkspaceCmd.stderr.on('data', (message) => {
-        logFn("debug code")
-        logFn(message)
-      })
+      createWorkspaceCmd.stderr.on('data', logFn)
       createWorkspaceCmd.on('close', (ec) => {
 
         // some error ocurred in the previous command??
