@@ -14,38 +14,12 @@ module.exports = (workspacePath) => {
         c === 0 ? resolve() : reject(new Error('failed to install pre-requisites'))
       };
 
-      console.log(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`);
-
-
-      const pathToAdd = [`/usr/local/bin`];
-      try {
-        const result = spawnSync('echo $(nvm which $(nvm current))', { shell: true, cwd: rootPath })
-        console.log('stodout', result.stdout.toString())
-        console.log('stdErr', result.stderr.toString())
-        if (result.stdout.toString().trim().length > 0) {
-          result.push(result.stdout.toString())
-        }
-      } catch (ex) {
-        console.log(ex)
-      }
-
-      const echoPATH = spawn(`echo $PATH`, { shell: true, cwd: rootPath })
-      echoPATH.stdout.on('data', logFn)
-      echoPATH.stderr.on('data', logFn)
-      echoPATH.on('close', (ec) => { });
-
-
-      console.log(`${process.env.PATH}:${pathToAdd.join(":")}`);
-
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
-      const createWorkspaceCmd = spawn(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
+      const createWorkspaceCmd = spawn(`source ~/.bashrc && source ~/.zshrc && npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
         {
           shell: true,
-          cwd: rootPath,
-          env: {
-            PATH: `${process.env.PATH}:${pathToAdd.join(":")}`,
-          }
+          cwd: rootPath
         })
       createWorkspaceCmd.stdout.on('data', logFn)
       createWorkspaceCmd.stderr.on('data', (message) => {
