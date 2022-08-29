@@ -14,9 +14,12 @@ module.exports = (workspacePath) => {
         c === 0 ? resolve() : reject(new Error('failed to install pre-requisites'))
       };
 
+
+      //if [ -f ~/.bash_profile ]; then source ~/.bash_profile; fi;if [ -f ~/.zshrc ]; then source ~/.zshrc; fi;
+
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
-      const createWorkspaceCmd = spawn(`source ~/.bashrc && source ~/.zshrc && npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
+      const createWorkspaceCmd = spawn(`if [ -f ~/.bash_profile ]; then source ~/.bash_profile; fi && if [ -f ~/.zshrc ]; then source ~/.zshrc; fi; && npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
         {
           shell: true,
           cwd: rootPath
