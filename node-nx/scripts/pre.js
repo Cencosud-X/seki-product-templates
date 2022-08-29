@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const { spawn, spawnSync } = require('child_process');
 
 module.exports = (workspacePath) => {
   return new Promise((resolve, reject) => {
@@ -15,31 +15,38 @@ module.exports = (workspacePath) => {
       };
 
       console.log(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`);
-      
 
 
-      const echoPATH = spawn(`echo $PATH`, {
-        shell: true,
-        cwd: rootPath
-      })
+      const pathToAdd = [`/usr/local/bin`];
+      try {
+        const result = spawnSync('nvm which $(nvm current)')
+        if (result.stdout.toString().trim().length > 0) {
+          result.push(result.stdout.toString())
+        }
+      } catch (ex) {
+        console.log(ex)
+      }
+
+      const echoPATH = spawn(`echo $PATH`, { shell: true, cwd: rootPath })
       echoPATH.stdout.on('data', logFn)
       echoPATH.stderr.on('data', logFn)
-      echoPATH.on('close', (ec) => {});
+      echoPATH.on('close', (ec) => { });
 
 
-      
+      console.log(`${process.env.PATH}:${pathToAdd.join(":")}`);
+
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
       const createWorkspaceCmd = spawn(`npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
-      {
-        shell: true,
-        cwd: rootPath,
-        env: {
-          PATH: `${process.env.PATH}:/usr/local/bin`,
-        }
-      })
+        {
+          shell: true,
+          cwd: rootPath,
+          env: {
+            PATH: `${process.env.PATH}:${pathToAdd.join(":")}`,
+          }
+        })
       createWorkspaceCmd.stdout.on('data', logFn)
-      createWorkspaceCmd.stderr.on('data', (message)=>{
+      createWorkspaceCmd.stderr.on('data', (message) => {
         logFn("debug code")
         logFn(message)
       })
@@ -59,7 +66,7 @@ module.exports = (workspacePath) => {
           shell: true,
           cwd: workspacePath,
           env: {
-            PATH: `${process.env.PATH}:/usr/local/bin`,
+            PATH: `${process.env.PATH}:${pathToAdd.join(":")}`,
           }
         })
 
@@ -68,7 +75,7 @@ module.exports = (workspacePath) => {
         cleanNxCmd.on('close', closeFn);
         // -------------------------------------------------------
       });
-      
+
 
     } catch (ex) {
       reject(ex);
