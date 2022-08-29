@@ -19,7 +19,7 @@ module.exports = (workspacePath) => {
 
       // -------------------------------------------------------
       // Install prerequisites and install project via nx
-      const createWorkspaceCmd = spawn(`if [ -f ~/.bash_profile ]; then source ~/.bash_profile; fi; if [ -f ~/.zshrc ]; then source ~/.zshrc; fi; && npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
+      const createWorkspaceCmd = spawn(`source ~/.zshrc && npx --yes create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false`,
         {
           shell: true,
           cwd: rootPath
