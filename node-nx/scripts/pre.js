@@ -22,7 +22,7 @@ module.exports = (workspacePath) => {
         shell: true,
         cwd: rootPath,
         env: {
-          PATH: `${process.env.PATH}:/usr/local/bin`,
+          PATH: `${process.env.PATH}`,
         }
       })
       createWorkspaceCmd.stdout.on('data', logFn)
