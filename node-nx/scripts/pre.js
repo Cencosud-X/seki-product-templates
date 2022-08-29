@@ -1,4 +1,4 @@
-const { spawn, spawnSync } = require('child_process');
+const { spawn, spawnSync, execSync } = require('child_process');
 
 module.exports = (workspacePath) => {
   return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ module.exports = (workspacePath) => {
 
       const pathToAdd = [`/usr/local/bin`];
       try {
-        const result = spawnSync('echo $(nvm which $(nvm current))')
+        const result = spawnSync('echo $(nvm which $(nvm current))', { shell: true, cwd: rootPath })
         console.log('stodout', result.stdout.toString())
         console.log('stdErr', result.stderr.toString())
         if (result.stdout.toString().trim().length > 0) {
