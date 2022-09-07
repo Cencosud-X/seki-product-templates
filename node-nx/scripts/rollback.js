@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
-module.exports = (rc) => {
-  console.log('> Rollback: ✅ DONE')
+module.exports = async (runner, args) => {
+  console.log('> Rollback: ✅ DONE');
+  return true;
 }
