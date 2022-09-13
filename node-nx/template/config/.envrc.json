@@ -1,8 +1,0 @@
-{
-  "$schema": "https://raw.githubusercontent.com/Cencosud-X/seki-schemas/main/v1/environments/envrc.schema.json",
-  "PRODUCT_NAME": {
-    "type": "string",
-    "default": "{{name}}",
-    "description": "Seki product name"
-  }
-}
