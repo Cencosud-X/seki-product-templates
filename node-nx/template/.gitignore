@@ -5,7 +5,10 @@
 /tmp
 /out-tsc
 
+/config/
 !/config/.secretsrc.json
+
+/apps/*/src/config/secrets.js
 
 # dependencies
 node_modules
