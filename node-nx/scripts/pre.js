@@ -21,6 +21,7 @@ module.exports = async (runner, args) => {
     console.log('> PRE: requisites ✅ DONE')
 
   } catch (ex) {
+    console.error(ex);
     throw new Error('Failed to install pre-requisites');
   }
 }
