@@ -8,12 +8,9 @@ module.exports = async (runner, args) => {
     );
     const rootPath = workspacePath.substring(0, workspacePath.lastIndexOf("/"));
 
-    await runner.execute(
-      ["echo 'debug code'", `command -v npx`, "echo $PATH"],
-      {
-        cwd: rootPath,
-      }
-    );
+    await runner.execute(["echo 'debug code'", "echo $PATH"], {
+      cwd: rootPath,
+    });
 
     await runner.execute(
       [
