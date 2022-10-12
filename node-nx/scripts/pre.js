@@ -8,10 +8,6 @@ module.exports = async (runner, args) => {
     );
     const rootPath = workspacePath.substring(0, workspacePath.lastIndexOf("/"));
 
-    await runner.execute(["echo 'debug code'", "echo $PATH"], {
-      cwd: rootPath,
-    });
-
     await runner.execute(
       [
         `npx create-nx-workspace@14.4.2 "${targetFolder}" --nxCloud=false --appName=dummy --preset=react --style=less --skipGit=false --yes`,
