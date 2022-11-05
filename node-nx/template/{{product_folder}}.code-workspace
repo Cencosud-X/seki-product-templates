@@ -6,6 +6,9 @@
     }
   ],
   "settings": {
-    "eslint.format.enable": true
+    "eslint.format.enable": true,
+    "terminal.integrated.cwd": "${workspaceFolder:Monorepo}"
   }
 }
+
+
