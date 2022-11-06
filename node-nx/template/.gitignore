@@ -8,7 +8,7 @@
 /config/*
 !/config/.secretsrc.json
 
-/apps/*/src/config/secrets.js
+/apps/*/src/config/secrets.ts
 
 # dependencies
 node_modules
