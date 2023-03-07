@@ -8,7 +8,9 @@
 /config/*
 !/config/.secretsrc.json
 
-/apps/*/src/config/secrets.ts
+/apps/*/src/config/*
+!/apps/*/src/config/.configrc.json
+!/apps/*/src/config/.gitkeep
 
 # dependencies
 node_modules
